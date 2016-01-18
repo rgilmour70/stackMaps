@@ -1,0 +1,15 @@
+#theMap {
+	position: relative;
+}
+#theCanvas { /* positioned to exactly overlay the map image */
+	position: absolute;
+	top: 0;
+	left: 0;
+	border:1px solid #242424;
+	z-index:1; 
+	display:none;
+}
+.locMessage {
+	position: absolute;
+	top: 440px;
+}
