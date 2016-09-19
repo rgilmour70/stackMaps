@@ -27,7 +27,7 @@ I realize that many libraries are more spatially complex and will require more c
 IC Library uses the Library of Congress call number system. Libraries using other call number systems could still use a system like this, but would need to replace `sortLC_lib.js` with some other sorting algorithm.
 
 ## Primo-specific Notes ##
-When using this system with Primo, we need to delay the running of the code until the contents of the location tab loads. I do this by wrapping the using the small but effective [jquery.waituntilexists.js](https://gist.github.com/buu700/4200601) as follows:
+When using this system with Primo, we need to delay the running of the code until the contents of the location tab loads. I do this by the using the small but effective [jquery.waituntilexists.js](https://gist.github.com/buu700/4200601) as follows:
 
     $('.EXLLocationInfo').waitUntilExists(function() {
         // all the JS here!
