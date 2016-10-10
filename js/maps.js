@@ -1,3 +1,5 @@
+// Activates a simple modal window that contains only text
+
 function buildMessage(text) {
 	$.colorbox({
 		opacity:0,
@@ -8,6 +10,9 @@ function buildMessage(text) {
 		scrolling:false
 	});
 }
+
+// Activates a modal window displaying a map
+// Used for both static and dynamic locations
 
 function buildMap(data, callNumber) {
 	var locMessage = "";
