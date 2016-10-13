@@ -1,3 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset=“UTF-8”>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Building a &quot;Find in Stacks&quot; Mapping System for Your Library</title>
+    <style>
+    body {
+        margin: 3em;
+        font-size: 1.2em;
+    }
+    .caption {
+        font-style: italic;
+    }
+    code {
+        font-family: Monaco, monospace;
+    }
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+    </style>
+</head>
+<body>
+
 <h1 id="building-a-find-in-stacks-mapping-system-for-your-library">Building a &quot;Find in Stacks&quot; Mapping System for Your Library</h1>
 <p>As online access to library resources has become the norm, the ability to find items in a library's stacks using a call number seems to be on the decline among students. In order to address this problem, Ithaca College Library has implemented a tool in our discovery system to assist students by displaying a map indicating the location of each physical library item.</p>
 <div class="figure">
@@ -112,10 +137,10 @@
 <p>You should have a JavaScript array like the one above for each of your dynamic locations.</p>
 <p>The final ingredient for a complete <code>mapData.js</code> file is a messages array that contains any text that you would like displayed for particular statuses or location.</p>
 <pre><code>var messages = {
-    &quot;popReading&quot; : &quot;Located on the low shelves just inside the Library entrance on the second floor.&quot;,
-    &quot;newspapers&quot; : &quot;Located on the low shelves on either side of the main staircase on the second floor.&quot;,
-    &quot;askALibrarian&quot; : &quot;Ask at the Research Help Desk on the second floor for help finding this item.&quot;,
-    &quot;mapFail&quot; : &quot;Odd. We can&#39;t find that. Ask at the Research Help Desk on the second floor for help finding this item.&quot;,
+    &quot;popReading&quot; : &quot;Located on the low shelves just inside the Library on the 2nd floor.&quot;,
+    &quot;newspapers&quot; : &quot;Located on the low shelves on either side of the staircase on the 2nd floor.&quot;,
+    &quot;askALibrarian&quot; : &quot;Ask at the Research Help Desk.&quot;,
+    &quot;mapFail&quot; : &quot;Odd. We can&#39;t find that. Ask at the Research Help Desk.&quot;,
     &quot;unavailable&quot; : &quot;This item is not currently available.&quot;,
     // and so forth
 };</code></pre>
@@ -138,3 +163,5 @@
 <p>The next step is to get familiar with the HTML of your catalog or discovery layer interface. Use your browser deverloper tools to discover what markup corresponds to a &quot;holding&quot; in the simplified HTML above. Once you've determined that, you can edit line 79 to control the appearance of the &quot;Where?&quot; link. You might want to add some logic for cases where no &quot;Where?&quot; link is desired (e.g., ebooks).</p>
 <p>You'll also need to edit the jQuery selectors on lines 84-86 to match the markup of your system.</p>
 <p>Specific notes for the Ex Libris Primo discovery system can be found in the README.</p>
+</body>
+</html>
