@@ -5,6 +5,8 @@ Again, this code is provided as a *model*. All libraries have their own unique q
 ## Summary ##
 The code inserts a "where" link for each item returned by a search. When a user clicks on this link, a modal window opens displaying a floor map with the location of the item highlighted. 
 
+More detail is available [here](http://rgilmour70.github.io/stackMaps/).
+
 ## A Little More Detail ##
 When the user clicks on the "where" link, we grab a few bits of information about the associated item: location, call number, and availability. Locations may be either static (defined as a general area, e.g., newspapers, reference stacks) or dynamic (performing a call number lookup to show a very specific location).
 
