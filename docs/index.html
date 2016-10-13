@@ -1,10 +1,11 @@
 <h1 id="building-a-find-in-stacks-mapping-system-for-your-library">Building a &quot;Find in Stacks&quot; Mapping System for Your Library</h1>
 <p>As online access to library resources has become the norm, the ability to find items in a library's stacks using a call number seems to be on the decline among students. In order to address this problem, Ithaca College Library has implemented a tool in our discovery system to assist students by displaying a map indicating the location of each physical library item.</p>
 <div class="figure">
-<img src="/images/logo.png" alt="Sample Map" /><p class="caption">Sample Map</p>
+<img src="img/sampleMap.png" alt="Sample Map" /><p class="caption">Sample Map</p>
 </div>
-<p>We are often asked about how to implement such a tool. Of course, we're happy to share our code with anyone who wants it, but the programming is only one part of the map system. On this page, I hope to document the system as a whole, including the organizational and communication challenges along with the technical ones. This will help you decide if such a project is worthwhile for your institution and to what extent the code provided here will work for your needs.</p>
-<h2 id="planning-your-project">Planning Your Project</h2>
+<p>We are often asked about how to implement such a tool. Of course, we're happy to share our code with anyone who wants it, but the programming is only one part of the map system. On this page, I hope to document the system as a whole, including the organizational challenges along with the technical ones. This will help you decide if such a project is worthwhile for your institution and to what extent the code provided here will work for your needs.</p>
+<p>Because of the host of variables involved in a mapping system, this is not &quot;plug and play&quot; software. You will need at least a little JavaScript experience in order to customize and implement it. In particular, you will need to create your own version of <code>js/mapData.js</code> (instructions follow) and you will most likely need to edit <code>js/maps.js</code>, especially if your stack designations differ significantly from those used at Ithaca College.</p>
+<h2 id="planning-your-mapping-project">Planning Your Mapping Project</h2>
 <h3 id="define-your-locations">Define Your Locations</h3>
 <p>Before you even open your code editor, there are a lot of decisions to make. Most libraries have multiple locations. At Ithaca College, we have about eighteen of these, including archives, general stacks, multimedia collection, periodicals, newspapers, reference, reserves, over-sized, etc. For the purposes of the mapping project, we divided these into two groups based on the type of mapping they would need.</p>
 <p><strong>Static</strong> locations are those that need mapping only to the collection level. These include collections that are small enough that just getting the student to the collection is adequate (e.g., newspapers, popular periodicals) as well as collections that are &quot;closed stack,&quot; requiring interaction with a staff member for the student to access an item (e.g., multimedia, reserves). In the case of the closed stack locations, we decided that the map should simply direct students to the appropriate service desk.</p>
@@ -33,13 +34,15 @@
     },
     // and so forth
 ];</code></pre>
-<p>In the example above, I've prefixed the location designation with a floor indicator. The entire music collection is on the third floor. Including a floor indicator is important, as this will determine which floor map will be displayed.</p>
-<p>Put this and other location code in a file called <code>mapData.js</code>. You'll need an array like the one above for each of your dynamically mapped locations.</p>
+<p>Notice the construction of the id values. They have the format:</p>
+<pre><code>[floor].[stack designation].[side of shelving unit]</code></pre>
+<p>The code in <code>js/maps.js</code> assumes that you are using this triplet system for the ids. If you are not, you will need to modify the <code>buildMap</code> function accordingly.</p>
+<p>Put this and other location information in a file called <code>mapData.js</code>. You'll need an array like the one above for each of your dynamically mapped locations.</p>
 <h2 id="building-the-maps-and-adding-coordinate-data">Building the Maps and Adding Coordinate Data</h2>
-<p>You'll need to create a map of each floor of your library. Try to keep these maps simple, emphasizing the stacks and any landmark features (stairwells, pillars) that will help students to orient. The map need not be to scale: it just needs to show your locations clearly, with enough room for a &quot;highlight&quot; effect to be applied to emphasize a single mapping unit. Save your maps as image files (PNGs should work nicely).</p>
+<p>You'll need to create a map of each floor of your library. Try to keep these maps simple, emphasizing the stacks and any landmark features (stairwells, pillars) that will help students to orient. The map need not be to scale: it just needs to show your locations clearly, with enough room for a &quot;highlight&quot; effect to be applied to emphasize a single mapping unit. Save your maps as png files in the <code>img/mapImages</code> directory, using the naming scheme <code>floor_[number].png</code>.</p>
 <p>One you have your map image files completed, you'll need to define the areas that you want highlighted for each location. Open one of your floor maps in Adobe Photoshop and activate the &quot;info&quot; panel. This will display x and y values for the point where your cursor is located on the image and will display height and width for any shape that you highlight with the cursor.</p>
 <div class="figure">
-<img src="/images/logo.png" alt="Determining map coordinates with Photoshop" /><p class="caption">Determining map coordinates with Photoshop</p>
+<img src="img/determiningCoordinates.png" alt="Determining map coordinates with Photoshop" /><p class="caption">Determining map coordinates with Photoshop</p>
 </div>
 <p>You will need x, y, height, and width values for each of your static locations and for each of the mapping units within your dynamic locations. The x and y coordinates are for the top left corner of the rectangle.</p>
 <p>Your static locations can be described in your <code>mapData.js</code> file as follows:</p>
@@ -75,7 +78,7 @@
     // and so forth
 };</code></pre>
 <p>Again, the numeric prefixes for the id values indicate the floor.</p>
-<p>Add coordinate values to the arrays that you already established for the dynamic locations:</p>
+<p>Add x, y, height, and width values to the arrays that you already established for the dynamic locations:</p>
 <pre><code>var musicStacks = [
     {
         &quot;id&quot; : &quot;3.M3.w&quot;, 
@@ -106,3 +109,32 @@
     },
     // and so forth
 ];</code></pre>
+<p>You should have a JavaScript array like the one above for each of your dynamic locations.</p>
+<p>The final ingredient for a complete <code>mapData.js</code> file is a messages array that contains any text that you would like displayed for particular statuses or location.</p>
+<pre><code>var messages = {
+    &quot;popReading&quot; : &quot;Located on the low shelves just inside the Library entrance on the second floor.&quot;,
+    &quot;newspapers&quot; : &quot;Located on the low shelves on either side of the main staircase on the second floor.&quot;,
+    &quot;askALibrarian&quot; : &quot;Ask at the Research Help Desk on the second floor for help finding this item.&quot;,
+    &quot;mapFail&quot; : &quot;Odd. We can&#39;t find that. Ask at the Research Help Desk on the second floor for help finding this item.&quot;,
+    &quot;unavailable&quot; : &quot;This item is not currently available.&quot;,
+    // and so forth
+};</code></pre>
+<h2 id="editing-maps.js">Editing maps.js</h2>
+<p>This would be a good time to look over <code>maps.js</code> and see if there are any changes that need to be made to match your particular case. The file is commented in some detail to help you with this process.</p>
+<p>For instance, if your <code>id</code> designations differ from the system described above at for Ithaca College, you'll need to edit the first 20 lines or so of the <code>buildMap</code> function, where the id is parsed.</p>
+<p>You'll almost certainly need to edit the <code>switch</code> statment that begins around line 97 to allow for your particular set of dynamic locations.</p>
+<h2 id="preliminary-testing">Preliminary Testing</h2>
+<p>At this point, you might want to make a copy <code>sample.html</code> and substitute my data with some of your own. This will let you test your system locally without worrying about the complexities of whatever catalog or discovery system you may be using. Use the simple markup as in the original file:</p>
+<pre><code>&lt;div class=&quot;catalogItem&quot;&gt;
+    &lt;h2 class=&quot;title&quot;&gt;Bleak House&lt;/h2&gt;
+    &lt;div class=&quot;holding&quot;&gt;
+        &lt;div class=&quot;location&quot;&gt;General Stacks&lt;/div&gt;
+        &lt;div class=&quot;callNumber&quot;&gt;PR4556 .A1 1977&lt;/div&gt;
+        &lt;div class=&quot;availability&quot;&gt;Available&lt;/div&gt;
+   &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+<p>Create test cases for items in static and dynamic locations, on different floors, etc. and see how the system works.</p>
+<h2 id="porting-it-to-your-catalog-or-discovery-layer">Porting It To Your Catalog or Discovery Layer</h2>
+<p>The next step is to get familiar with the HTML of your catalog or discovery layer interface. Use your browser deverloper tools to discover what markup corresponds to a &quot;holding&quot; in the simplified HTML above. Once you've determined that, you can edit line 79 to control the appearance of the &quot;Where?&quot; link. You might want to add some logic for cases where no &quot;Where?&quot; link is desired (e.g., ebooks).</p>
+<p>You'll also need to edit the jQuery selectors on lines 84-86 to match the markup of your system.</p>
+<p>Specific notes for the Ex Libris Primo discovery system can be found in the README.</p>
