@@ -121,13 +121,14 @@ $('.where').click(function(e) {
 				// array with the start and end callnumbers for that stack face
 				// as well as the current callnumber that you're interested in.
 				test = sortLC(start, end, callNumber);
-				if (test[1] === callNumber) {
+				if (test[1] === callNumber || test.length === 2) {
 					// your callnumber is between "start" and "end" for
 					// the current stack face object
 					response = lookupArray[i];
 					// pass the current stack face object and your callnumber
 					// to the map building function (above).
 					buildMap(response, callNumber);
+					break;
 			 	}
 			}
 			if (response === "") {  // can't find the range for that call number
