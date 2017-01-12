@@ -8,12 +8,17 @@
     body {
         margin: 3em;
         font-size: 1.2em;
+        line-height: 1.4em;
     }
     .caption, .byline {
         font-style: italic;
     }
     code {
         font-family: Monaco, monospace;
+        font-size: 0.9em;
+    }
+    .figure {
+        margin-bottom: 1.6em;
     }
     img {
         max-width: 100%;
@@ -41,6 +46,9 @@
 <p>We decided that for the dynamic locations, we would specify location to the level of one side of a shelving unit. Anecdotal evidence from staff members indicated that students who had trouble finding an item were usually in the wrong area of the stacks altogether, so we felt that specifying location to the level of stack face should be adequate. In deciding on the level of granularity for your map data, remember that <em>collections move.</em> The more granular you make your data, the more frequently you will have to update it to account for shifting in the stacks.</p>
 <h3 id="naming-and-stack-signs">Naming and Stack Signs</h3>
 <p>A mapping system will be most effective if it is coupled with clear, highly visible stack signs that unambiguously designate the location in whatever language is used in the maps. As mentioned above, at Ithaca College we have three dynamically mapped locations, general stacks, music stacks, and bound periodicals. We numbered the shelving units as G1, G2, etc. for the general stacks, and used M and P, respectively, to prefix numbers for the music and periodical stacks. The stacks in all three of these collections are oriented north-south, so we indicate the side of a shelving unit with &quot;east&quot; or &quot;west.&quot; &quot;M11.e,&quot; for instance, would indicate the east side of the eleventh shelving unit in the music collection.</p>
+<div class="figure">
+<img src="img/stackSign.jpg" alt="Sample stack sign" /><p class="caption">Sample Stack Sign</p>
+</div>
 <h2 id="collecting-call-number-data">Collecting Call Number Data</h2>
 <p>For each &quot;mapping unit&quot; (in IC's case, a mapping unit is one stack face), you'll need to collect beginning and end call numbers. This data can be recorded in a JSON-ish manner as follows:</p>
 <pre><code>var musicStacks = [
