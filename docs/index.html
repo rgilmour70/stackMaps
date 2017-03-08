@@ -31,6 +31,7 @@
 <h1 id="building-a-find-in-stacks-mapping-system-for-your-library">Building a &quot;Find in Stacks&quot; Mapping System for Your Library</h1>
 <p class="byline">Ron Gilmour</p>
 <p>Find the Code Here: <a href="https://github.com/rgilmour70/stackMaps">Primo old UI (non-Angular)</a>&nbsp;|&nbsp;<a href="https://github.com/rgilmour70/primo-new-ui-custom">Primo AngularJS 1 UI</a></p>
+<p><em>Some of the language and code samples on this page specifically applies to the "old" (non-Angular) UI.</em></p>
 <p>As online access to library resources has become the norm, the ability to find items in a library's stacks using a call number seems to be on the decline among students. In order to address this problem, Ithaca College Library has implemented a tool in our discovery system to assist students by displaying a map indicating the location of each physical library item.</p>
 <div class="figure">
 <img src="img/sampleMap.png" alt="Sample Map" /><p class="caption">Sample Map</p>
@@ -170,7 +171,7 @@
 &lt;/div&gt;</code></pre>
 <p>Create test cases for items in static and dynamic locations, on different floors, etc. and see how the system works.</p>
 <h2 id="porting-it-to-your-catalog-or-discovery-layer">Porting It To Your Catalog or Discovery Layer</h2>
-<p>The next step is to get familiar with the HTML of your catalog or discovery layer interface. Use your browser deverloper tools to discover what markup corresponds to a &quot;holding&quot; in the simplified HTML above. Once you've determined that, you can edit line 79 to control the appearance of the &quot;Where?&quot; link. You might want to add some logic for cases where no &quot;Where?&quot; link is desired (e.g., ebooks).</p>
+<p>The next step is to get familiar with the HTML of your catalog or discovery layer interface. Use your browser developer tools to discover what markup corresponds to a &quot;holding&quot; in the simplified HTML above. Once you've determined that, you can edit line 79 to control the appearance of the &quot;Where?&quot; link. You might want to add some logic for cases where no &quot;Where?&quot; link is desired (e.g., ebooks).</p>
 <p>You'll also need to edit the jQuery selectors on lines 84-86 to match the markup of your system.</p>
 <p>Specific notes for the Ex Libris Primo discovery system can be found in the README.</p>
 </body>
