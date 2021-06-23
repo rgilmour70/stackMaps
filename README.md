@@ -1,3 +1,5 @@
+**I'm setting this repo as archived. A newer version of the stack map system may be found as part of Ithaca College's [Primo VE customization package](https://github.com/rgilmour70/ic-primo-ve). Updated documentation is available [here](https://rgilmour70.github.io/ic-primo-ve/).**
+
 This is front-end code designed to display maps to item locations for a library collection. It was developed for use within the [Primo Discovery and Delivery system from ExLibris](http://www.exlibrisgroup.com/category/PrimoOverview). The code presented here is not Primo-specific and could serve as a model for developing location maps in other systems. See below for some notes on how to make the code work with Primo.
 
 Again, this code is provided as a *model*. All libraries have their own unique quirks: architectural, organizational, cataloging, etc. and these will need to be accounted for in any mapping system.
